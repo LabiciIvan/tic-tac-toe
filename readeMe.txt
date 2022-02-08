@@ -1,0 +1,7 @@
+This is my project Tic Tac Toe, 
+I used JavaScript to give functionality to this project
+and in use with CSS and HTML I've been able to make it as a browser game.
+
+It is a classic game for two players who take turns marking the spaces in a three-by-three grid with X or O.
+The player who succeeds in placing three of their marks in a horizontal, vertical, or diagonal row is the winner.
+Else if there is no winner then it is a DRAW!
