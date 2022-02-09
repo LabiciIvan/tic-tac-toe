@@ -26,6 +26,7 @@ body {
 #gameBoardCover:hover {
   background-color: black;
   color: white;
+  cursor: pointer;
 }
 
 .boxes {
