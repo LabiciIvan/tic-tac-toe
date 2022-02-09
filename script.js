@@ -1,5 +1,5 @@
 let placeXorO = "X";
-let moves = 9;
+let emptySquares = 9;
 let positionOfXandOInArray = ["","","","","","","","",""];
 
 document.querySelectorAll(".boxes").forEach(box => { box.addEventListener("click", fillBoxes, { once: true }) });
@@ -19,7 +19,7 @@ function XorO() {
   } else {
     placeXorO = "X";
   }
-  --moves;
+  --emptySquares;
 }
 
 function winner(winner) {
@@ -63,7 +63,7 @@ function checkBoard() {
     if (first == second && second == third && first != "" && second != "" && third != "") {
       let value = first;
       winner(value);
-    } else if (moves == 0) {
+    } else if (emptySquares == 0) {
       winner()
     }
   }
