@@ -1,128 +1,116 @@
 import React from 'react';
 import { useState } from 'react';
 
-import './Game.css';
 import Square from './components/Square';
+import {squaresArray, gameWinCombination} from './game-settings';
 
 
 const Game = () => {
+  
+  const [squares, setSquares] = useState(squaresArray)
 
-  const [inactive, setInactive] = useState(
-[   {
-      id: 1,
-      disabled: false,
-      inner: '',
-    },
-    {
-      id: 2,
-      disabled: false,
-      inner: '',
-    },
-    {
-      id: 3,
-      disabled: false,
-      inner: '',
-    },
-    {
-      id: 4,
-      disabled: false,
-      inner: '',
-    },
-    {
-      id: 5,
-      disabled: false,
-      inner: '',
-    },
-    {
-      id: 6,
-      disabled: false,
-      inner: '',
-    },
-    {
-      id: 7,
-      disabled: false,
-      inner: '',
-    },
-    {
-      id: 8,
-      disabled: false,
-      inner: '',
-    },
-    {
-      id: 9,
-      disabled: false,
-      inner: '',
-    }]
-  )
+  const [winCombination, setWinCombination] = useState(gameWinCombination);
 
   const [player, setPlayer] = useState('X');
 
-  const [winCombination, setWinCombination] = useState(
-    [
-      [0, 1, 2],
-      [3, 4, 5],
-      [6, 7, 8],
-      [6, 4, 2],
-      [8, 4, 0],
-      [6, 3, 0],
-      [7, 4, 1],
-      [8, 5, 2],
-    ]
-  );
-    
-  const handleSquare = (buttonValue) => {
+  const [winner, setWinner] = useState('');
 
-    let squares = [...inactive];
+  const [playing, setPlaying] = useState(true);
+  
+  const handleClickedSquare = (squareId) => {
+
+    let squaresState = [...squares];
     
-    squares .map(square => {
-      if(square.id === buttonValue) {
+    squaresState.map(square => {
+
+      if(square.id === squareId) {
         
         square.disabled = true;
         square.inner = player;
-        
       }
     });
 
     player === 'X' ? setPlayer('O') : setPlayer('X');
     
-    setInactive(squares );
-    checkWin();
+    setSquares(squaresState);
+
+    checkGameState();
   }
 
-  const createSquares = () => {
+  const startGame = () => {
 
-    return inactive.map(item => {
+    return squares.map(square => {
       
       return <Square
-       key={item.id}
-        onClick={handleSquare}
-         inactive={item.disabled}
-          value={item.id}
-            inner={item.inner}
+       key={square.id}
+        onClick={handleClickedSquare}
+         inactive={square.disabled}
+          value={square.id}
+            inner={square.inner}
           />
     })
   }
 
-  const checkWin = () => {
+  const checkGameState = () => {
+    let existEmptySquares = false;
 
     for (let i = 0; i < winCombination.length; ++i) {
 
-      if(inactive[winCombination[i][0]].inner != '' && inactive[winCombination[i][1]].inner != '' && inactive[winCombination[i][2]].inner != '') {
+      if(squares[winCombination[i][0]].inner != '' && squares[winCombination[i][1]].inner != '' && squares[winCombination[i][2]].inner != '') {
 
-        if ( inactive[winCombination[i][0]].inner === inactive[winCombination[i][1]].inner && inactive[winCombination[i][0]].inner === inactive[winCombination[i][2]].inner) {
-          console.log('winner', player);
+        if ( squares[winCombination[i][0]].inner === squares[winCombination[i][1]].inner && squares[winCombination[i][0]].inner === squares[winCombination[i][2]].inner) {
+          stopGame(player);
         }
       }
     }
+
+    squares.map(square => {
+
+      if (square.disabled === false ) {
+        existEmptySquares = true;
+      }
+    });
+
+    if (!existEmptySquares === true) {
+      stopGame();
+    }
+  }
+  
+  const stopGame = (player) => {
+    
+    let squaresState = [...squares];
+
+    squaresState.map(square => {
+      
+      square.disabled = true;
+    });
+
+    setSquares(squaresState);
+    player ? setWinner(`Winner : ${player}`) : setWinner('It\'s a draw.');
+    setPlaying(false);
   }
 
-  return ( 
-    <div className='game-map'>
-      {createSquares()}
-    </div>
-   );
+  const restartGame = () => {
+
+    return <button onClick={() => reloadWindow()} ><i className="bi bi-arrow-repeat"></i></button>;
+  }
+
+  
+  const reloadWindow = () => {
+    return window.location.reload();
+  }
+
+  return (
+
+    <React.Fragment>
+      <div className='winner'>{winner}</div>
+      <div className='squares'>
+        { startGame() }
+      </div>
+      <div className='turn' >{!playing == true ? restartGame() : ''}</div>
+    </React.Fragment>
+    
+    );
   }
   
   export default Game;
-
-  
