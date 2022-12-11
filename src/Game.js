@@ -107,7 +107,7 @@ const Game = () => {
       <div className='squares'>
         { startGame() }
       </div>
-      <div className='turn' >{!playing == true ? restartGame() : ''}</div>
+      <div className='restart-window' >{!playing == true ? restartGame() : ''}</div>
     </React.Fragment>
     
     );

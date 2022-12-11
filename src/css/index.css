@@ -30,7 +30,7 @@ body {
 
 }
 
-.turn {
+.restart-window {
   display: grid;
   height: 100px;
   width: 300px;
