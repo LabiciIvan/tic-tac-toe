@@ -1,9 +1,11 @@
 .square {
   border: none;
-  border: 1px solid rgb(111, 110, 110);
-  font-size: 20px;
-  color: black;
   background-color: white;
   cursor: pointer;
+  width: 70%;
+  height: 70%;
+  display: grid;
+  justify-self: center;
+  align-self: center;
 }
 
