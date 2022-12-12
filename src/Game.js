@@ -16,6 +16,8 @@ const Game = () => {
   const [winner, setWinner] = useState('');
 
   const [playing, setPlaying] = useState(true);
+
+  const [moves, setMoves] = useState(9);
   
   const handleClickedSquare = (squareId) => {
 
@@ -59,7 +61,8 @@ const Game = () => {
       if(squares[winCombination[i][0]].inner != '' && squares[winCombination[i][1]].inner != '' && squares[winCombination[i][2]].inner != '') {
 
         if ( squares[winCombination[i][0]].inner === squares[winCombination[i][1]].inner && squares[winCombination[i][0]].inner === squares[winCombination[i][2]].inner) {
-          stopGame(player);
+          stopGame(false);
+          return;
         }
       }
     }
@@ -72,12 +75,13 @@ const Game = () => {
     });
 
     if (!existEmptySquares === true) {
-      stopGame();
+      stopGame(true);
+      return;
     }
   }
   
-  const stopGame = (player) => {
-    
+  const stopGame = (isDraw) => {
+
     let squaresState = [...squares];
 
     squaresState.map(square => {
@@ -86,13 +90,13 @@ const Game = () => {
     });
 
     setSquares(squaresState);
-    player ? setWinner(`Winner : ${player}`) : setWinner('It\'s a draw.');
+    isDraw ? setWinner('It\'s a draw .') : setWinner(`Winner : ${player} `);
     setPlaying(false);
   }
 
   const restartGame = () => {
 
-    return <button onClick={() => reloadWindow()} ><i className="bi bi-arrow-repeat"></i></button>;
+    return <button className='restart-btn' onClick={() => reloadWindow()} ><i className="bi bi-arrow-repeat"></i></button>;
   }
 
   
