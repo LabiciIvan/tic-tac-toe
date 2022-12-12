@@ -1,4 +1,5 @@
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css");
+@import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap');
 
 * {
   padding: 0;
@@ -17,7 +18,6 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-
 }
 
 .squares {
@@ -27,21 +27,47 @@ body {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
-
 }
 
 .restart-window {
   display: grid;
   height: 100px;
   width: 300px;
-  /* background-color: palegoldenrod; */
+}
+
+.restart-btn {
+  height: 50%;
+  width: 50%;
+  justify-self: center;
+  align-self: center;
+  border: 2px solid rgb(93, 132, 231);
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+.restart-btn:hover {
+  border: none;
+  background-color: rgb(136, 165, 240);
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.restart-btn:hover .bi.bi-arrow-repeat {
+color: white;
+}
+
+.bi.bi-arrow-repeat {
+  font-size: 22px;
+  color: rgb(93, 132, 231);
 }
 
 .winner {
   display: grid;
   height: 100px;
   width: 300px;
-  /* background-color: peachpuff; */
   justify-content: center;
   align-items: center;
+  font-size: 25px;
+  font-family: 'Special Elite', cursive;
 }
