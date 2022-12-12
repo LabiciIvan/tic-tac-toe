@@ -9,7 +9,6 @@ const Square = (props) => {
       onClick={() => props.onClick(props.value)}
        disabled={props.inactive}
         value={props.value}>
-             {props.inner}
     </button>
     );
 }

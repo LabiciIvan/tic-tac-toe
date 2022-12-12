@@ -3,6 +3,7 @@ import { useState } from 'react';
 
 import Square from './components/Square';
 import {squaresArray, gameWinCombination} from './game-settings';
+import { annotate } from 'rough-notation';
 
 
 const Game = () => {
@@ -29,6 +30,8 @@ const Game = () => {
         
         square.disabled = true;
         square.inner = player;
+
+        runAnimantion(square.id);
       }
     });
 
@@ -104,11 +107,21 @@ const Game = () => {
     return window.location.reload();
   }
 
+  const runAnimantion = (squareValue) => {
+
+    let square = document.querySelector(`[value="${squareValue}"]`); 
+
+    const annotation = player === 'X' ? annotate(square, {type: 'crossed-off', strokeWidth: '2px', animationDuration: 400, color: 'gray'}) : annotate(square, {type: 'circle', strokeWidth: '2px', animationDuration: 400, color: 'gray'});
+    annotation.show();
+  }
+
   return (
 
     <React.Fragment>
       <div className='winner'>{winner}</div>
       <div className='squares'>
+        <div className='column-map'></div>
+        <div className='row-map'></div>
         { startGame() }
       </div>
       <div className='restart-window' >{!playing == true ? restartGame() : ''}</div>
